@@ -1,0 +1,27 @@
+name: Upload docker compose.yaml to S3
+
+on:
+  push: # Trigger when repository is updated
+    branches:
+      - main
+
+jobs:
+  upload-tp-s3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: action/checkout@v3
+
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install awscli
+
+      - name: Upload file to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-2
+        run: |
+          aws s3 cp compose.yaml s3://rssfetcher/
