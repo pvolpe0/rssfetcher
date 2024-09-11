@@ -1,0 +1,6 @@
+sqs_queue_name: 'rssfeed'
+aws_region: 'us-east-2'
+rsshub_base_url: 'rsshub:1200'
+rss_feed_routes:
+  - 'apnews/topics/apf-topnews'
+
